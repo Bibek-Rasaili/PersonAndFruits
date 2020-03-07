@@ -7,14 +7,25 @@ mongoose.connect("mongodb://localhost:27017/personAndFruitsDB", { useNewUrlParse
 
 // Schema for Person
 const PersonSchema = mongoose.Schema({
-  name: String,
+  name: {
+    type: String,
+    required: [true, "Ops! Name field empty."]
+  },
   age: Number
 });
 
 // Schema/Structure for Fruit Document
 const FruitSchema = mongoose.Schema({
-  name: String,
-  rating: Number,
+  name: {
+    type: String,
+    required: [true, " Fruit MUST have a name. "]
+  },
+  rating: {
+    type: Number,
+    required: true,
+    min: 1,
+    max: 10
+  },
   review: String
 })
 
