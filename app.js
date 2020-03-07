@@ -5,15 +5,6 @@ const mongoose = require('mongoose');
 mongoose.connect("mongodb://localhost:27017/personAndFruitsDB", { useNewUrlParser: true, useUnifiedTopology: true });
 // mongoose will create this database if it doesn't exist.
 
-// Schema for Person
-const personSchema = mongoose.Schema({
-  name: {
-    type: String,
-    required: [true, "Ops! Name field empty."]
-  },
-  age: Number
-});
-
 // Schema/Structure for Fruit Document
 const fruitSchema = mongoose.Schema({
   name: {
@@ -29,6 +20,20 @@ const fruitSchema = mongoose.Schema({
   review: String
 })
 
+// -- fruitSchema has to be placed on above/before personSchema --
+
+// Schema for Person
+const personSchema = mongoose.Schema({
+  name: {
+    type: String,
+    required: [true, "Ops! Name field empty."]
+  },
+  age: Number,
+
+  favouriteFruit: fruitSchema //added to establish relationship between "Person" and "Fruit"
+
+});
+
 // Person Model
 const Person = mongoose.model("person", personSchema);
 // person will be converted "people" collection by mongoose (using lodash?)
@@ -41,18 +46,25 @@ const Fruit = mongoose.model("fruit", fruitSchema);
 
 
 // Adding document(s)
-const person = new Person({
-  name: "John",
-  age: 25
-});
-
 const fruit = new Fruit(
   {
-    name: "Apple",
-    rating: 7,
-    review: "An apple a day keeps the doctor away."
+    name: "Pineapple",
+    rating: 9,
+    review: "Tasty and Healthy."
   }
 );
+
+// fruit document placed above (to be accessed) - SAME HAD to be done for Schema
+// otherwise Error:
+// Cannot access 'fruitSchema' before initialization
+// Cannot access 'fruit' before initialization
+const person = new Person({
+  name: "Amy",
+  age: 28,
+  favouriteFruit: fruit //relationship
+});
+
+
 
 person.save(); //adds "John" to "people" collection in personAndFruitsDB database
 fruit.save();  // adds "Apple" to "fruits" collection in personAndFruitsDB database
