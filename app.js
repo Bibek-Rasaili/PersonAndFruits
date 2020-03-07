@@ -65,7 +65,58 @@ const person = new Person({
 });
 
 
-
-person.save(); //adds "John" to "people" collection in personAndFruitsDB database
-fruit.save();  // adds "Apple" to "fruits" collection in personAndFruitsDB database
+// person.save(); //adds "John" to "people" collection in personAndFruitsDB database
+// fruit.save();  // adds "Apple" to "fruits" collection in personAndFruitsDB database
 // End of adding documents.
+
+
+// Challenge:
+// Add a new fruit + set it as John's favouriteFruit
+
+// Add new fruit
+const watermelon = new Fruit({
+  name: "Watermelon",
+  rating: 9,
+  review: "Refreshing and Hydrating"
+});
+
+watermelon.save();
+
+// because john is already created, we have to UPDATE not Create.
+// Model.updateOne() to update (add) John's favouriteFruit
+Person.updateOne(
+  {
+    name: "John" //Condition
+  },
+  {
+    favouriteFruit: watermelon //set "John"s favouriteFruit to watermelon
+  },
+  function(err){
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Successully added John's favouriteFruit.");
+    }
+  }
+);
+// End of Challenge
+
+
+
+
+
+
+
+// //
+// const john = new Person({
+//   name: "John",
+//   age: 25
+// });
+// const apple = new Fruit({
+//   name: "Apple",
+//   rating: 7,
+//   review: "An apple a day keeps the doctor away."
+// })
+// john.save();
+// apple.save();
+// //
