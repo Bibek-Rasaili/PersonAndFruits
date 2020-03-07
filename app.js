@@ -64,16 +64,16 @@ const person = new Person({
   favouriteFruit: fruit //relationship
 });
 
-
 // person.save(); //adds "John" to "people" collection in personAndFruitsDB database
 // fruit.save();  // adds "Apple" to "fruits" collection in personAndFruitsDB database
 // End of adding documents.
 
 
-// Challenge:
-// Add a new fruit + set it as John's favouriteFruit
+// Embedding Fruit Document to a Existing Person Document
+// 1 - Add a new fruit
+// 2 -set it as John's favouriteFruit
 
-// Add new fruit
+// Add new fruit - 1
 const watermelon = new Fruit({
   name: "Watermelon",
   rating: 9,
@@ -83,7 +83,7 @@ const watermelon = new Fruit({
 watermelon.save();
 
 // because john is already created, we have to UPDATE not Create.
-// Model.updateOne() to update (add) John's favouriteFruit
+// Model.updateOne() to update (add) John's favouriteFruit - 2
 Person.updateOne(
   {
     name: "John" //Condition
@@ -99,7 +99,6 @@ Person.updateOne(
     }
   }
 );
-// End of Challenge
 
 
 
@@ -107,7 +106,7 @@ Person.updateOne(
 
 
 
-// //
+// If you want  to create more documents - Template here//
 // const john = new Person({
 //   name: "John",
 //   age: 25
