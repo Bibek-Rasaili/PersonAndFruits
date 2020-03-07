@@ -6,7 +6,7 @@ mongoose.connect("mongodb://localhost:27017/personAndFruitsDB", { useNewUrlParse
 // mongoose will create this database if it doesn't exist.
 
 // Schema for Person
-const PersonSchema = mongoose.Schema({
+const personSchema = mongoose.Schema({
   name: {
     type: String,
     required: [true, "Ops! Name field empty."]
@@ -15,7 +15,7 @@ const PersonSchema = mongoose.Schema({
 });
 
 // Schema/Structure for Fruit Document
-const FruitSchema = mongoose.Schema({
+const fruitSchema = mongoose.Schema({
   name: {
     type: String,
     required: [true, " Fruit MUST have a name. "]
@@ -30,12 +30,12 @@ const FruitSchema = mongoose.Schema({
 })
 
 // Person Model
-const Person = mongoose.model("person", PersonSchema);
+const Person = mongoose.model("person", personSchema);
 // person will be converted "people" collection by mongoose (using lodash?)
 // only Document(s) that follow the PersonSchema will be added to "people" collection
 
 // Fruit Model
-const Fruit = mongoose.model("fruit", FruitSchema);
+const Fruit = mongoose.model("fruit", fruitSchema);
 // fruit will be converted to "fruits" collection by Mongoose
 // Only documents that follow the FruitSchema will be added to "fruits" collection
 
